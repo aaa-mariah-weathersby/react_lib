@@ -1,7 +1,7 @@
 @import './globals/styles/base/variables.scss';
 @import './globals/styles/base/animations.scss';
 
-@import './globals/styles/base/layout.scss';
+@import './globals/styles/layout/layout.scss';
 
 //must summon styles by base name [not nested name]
 //ex: access button_label through style.button_label
