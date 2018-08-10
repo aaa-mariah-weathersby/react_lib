@@ -1,39 +1,47 @@
+@import './globals/styles/base/variables.scss';
+@import './globals/styles/base/animations.scss';
+
+@import './globals/styles/base/layout.scss';
 
 //must summon styles by base name [not nested name]
 //ex: access button_label through style.button_label
 
 .primary_button {
-    color: white;
-    background-color: white;
-    border: 1px solid blue;
+
+    font-family: $font-stack;
+    font-weight: 200;
+
+    color: $white;
+    background-color: $white;
+    border: 1px solid $blue-primary;
 
     // -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
     // box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 
-    // @include transition($args: background-color .35s linear);
-    // @include transition($args: color .35s linear);
+    @include transition($args: background-color .35s linear);
+    @include transition($args: color .35s linear);
 
     .button_label {
-        color: blue;
+        color: $blue-primary;
 
     }
 
     &:hover {
-        background-color: blue;
+        background-color: $blue-primary;
 
         .button_label {
-            color: white;
+            color: $white;
     
         }
     }
 
     &.active {
-        background-color: blue;
+        background-color: $blue-primary;
         -webkit-box-shadow: none;
         box-shadow: none;
 
         .button_label {
-            color: white;
+            color: $white;
 
         }
 
@@ -41,14 +49,14 @@
     }
 
     &.disabled {
-        background-color: gray;
-        border-color: gray;
+        background-color: $gray-disabled;
+        border-color: $gray-disabled;
 
         -webkit-box-shadow: none;
         box-shadow: none;
 
         .button_label {
-            color: white;
+            color: $white;
 
         }
 

@@ -41,10 +41,6 @@ export class Button extends Component {
   render() {
 
     return (
-      <div
-        className={cx(style.primary_button)}
-      >
-      
       <MuiThemeProvider theme={this.themeOverride}>
         <ButtonBase 
           disableRipple = {true}
@@ -52,7 +48,7 @@ export class Button extends Component {
           focusRipple = {false}
         
           classes = {{
-            root: cx(style.primary_button) + "primary_button"
+            root: cx(style.primary_button) + " primary_button"
           }}
 
           children = {
@@ -66,12 +62,6 @@ export class Button extends Component {
 
         />
       </MuiThemeProvider>
-
-        <button>
-            <h1>Button Weathersby</h1>
-        </button>
-
-      </div>
     )
   }
 }
