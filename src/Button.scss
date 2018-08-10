@@ -1,98 +1,58 @@
-.PopupMenu {
-    position: relative;
 
-    h1 {
-        background: green;
-        color: orange;
+//must summon styles by base name [not nested name]
+//ex: access button_label through style.button_label
+
+.primary_button {
+    color: white;
+    background-color: white;
+    border: 1px solid blue;
+
+    // -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    // box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+
+    // @include transition($args: background-color .35s linear);
+    // @include transition($args: color .35s linear);
+
+    .button_label {
+        color: blue;
+
     }
 
-  }
-  
-  .button {
-    padding: 5px;
-    border-radius: 2px;
-    width: 30px;
-    height: 30px;
-    transition: background 0.25s ease-in-out;
-    background: blue;
-  
-    &:hover, &:global(.active) {
-      background: yellow;
+    &:hover {
+        background-color: blue;
+
+        .button_label {
+            color: white;
+    
+        }
     }
-  }
-  
-  .popover {
-    background: white;
-    position: absolute;
-    width: calc(200px - 10px);
-    height: calc(200px - 10px);
-    left: calc(-100px + 50%);
-    top: 60px;
-    border-radius: 5px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    transition: opacity 0.5s ease-in-out;
-    opacity: 0;
-    padding: 5px;
-    z-index: 1;
-  
-    &:global(.active) {
-      opacity: 1;
+
+    &.active {
+        background-color: blue;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+
+        .button_label {
+            color: white;
+
+        }
+
+
     }
-  
-    &:hover + .button {
-      background: rgba(0,0,0,0.1);
+
+    &.disabled {
+        background-color: gray;
+        border-color: gray;
+
+        -webkit-box-shadow: none;
+        box-shadow: none;
+
+        .button_label {
+            color: white;
+
+        }
+
     }
-  
-    &:before {
-      content: "";
-      position: absolute;
-      display: block;
-      top: -20px;
-      left: calc(50% - 10px);
-      border: 10px solid white;
-      border-color: transparent transparent white transparent;
-    }
-  }
-  
-  .direction-top {
-    .popover {
-      top: auto;
-      bottom: 60px;
-  
-      &:before {
-        top: auto;
-        bottom: -20px;
-        border-color: white transparent transparent transparent;
-      }
-    }
-  }
-  
-  .direction-left {
-    .popover {
-      top: -100px;
-      left: auto !important;
-      right: 60px;
-  
-      &:before {
-        left: auto;
-        right: -20px;
-        top: calc(50% - 10px);
-        border-color: transparent transparent transparent white;
-      }
-    }
-  }
-  
-  .direction-right {
-    .popover {
-      top: -100px;
-      right: auto !important;
-      left: 60px !important;
-  
-      &:before {
-        right: auto;
-        left: -20px;
-        top: calc(50% - 10px);
-        border-color: transparent white transparent transparent;
-      }
-    }
-  }
+
+
+}
