@@ -40,7 +40,12 @@ export default {
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
     resolve(),
-    commonjs()
+    commonjs({
+      include: 'node_modules/**',
+      namedExports: {
+        'node_modules/@material-ui/core/styles/index.js': ['MuiThemeProvider', 'createMuiTheme'],
+      }
+    })
   ],
 
   external: ['react', 'react-dom'],

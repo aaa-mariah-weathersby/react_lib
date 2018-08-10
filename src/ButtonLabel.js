@@ -11,8 +11,8 @@ export default class ButtonLabel extends Component {
   render() {
 
     return (
-        <h4 className={`${styles.button_label} ${props.classes} button_label`}>
-            {props.label}
+        <h4 className={`${style.button_label} ${this.props.classes} button_label`}>
+            {this.props.label}
         </h4>
     )
   }

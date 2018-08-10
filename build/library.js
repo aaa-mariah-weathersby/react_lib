@@ -1,8 +1,8 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('react-dom'), require('@material-ui/styles')) :
-	typeof define === 'function' && define.amd ? define(['exports', 'react', 'react-dom', '@material-ui/styles'], factory) :
-	(factory((global.ReactRectanglePopupMenu = {}),global.React,global.ReactDOM,global.styles$1));
-}(this, (function (exports,_react,reactDom,styles$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('react-dom')) :
+	typeof define === 'function' && define.amd ? define(['exports', 'react', 'react-dom'], factory) :
+	(factory((global.ReactRectanglePopupMenu = {}),global.React,global.ReactDOM));
+}(this, (function (exports,_react,reactDom) { 'use strict';
 
 var _react__default = 'default' in _react ? _react['default'] : _react;
 reactDom = reactDom && reactDom.hasOwnProperty('default') ? reactDom['default'] : reactDom;
@@ -797,6 +797,7 @@ function styleInject(css, ref) {
 }
 
 var css = ".ButtonLabel_button_label__1p89a {\n  color: inherit;\n  font-weight: 400;\n  text-transform: none;\n  margin: .5em; }\n";
+var style = { "button_label": "ButtonLabel_button_label__1p89a" };
 styleInject(css);
 
 var classnames = createCommonjsModule(function (module) {
@@ -1174,26 +1175,26 @@ var possibleConstructorReturn = function (self, call) {
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
 
-var ButtonLabel$1 = function (_Component) {
-  inherits(ButtonLabel$$1, _Component);
+var ButtonLabel = function (_Component) {
+  inherits(ButtonLabel, _Component);
 
-  function ButtonLabel$$1() {
-    classCallCheck(this, ButtonLabel$$1);
-    return possibleConstructorReturn(this, (ButtonLabel$$1.__proto__ || Object.getPrototypeOf(ButtonLabel$$1)).apply(this, arguments));
+  function ButtonLabel() {
+    classCallCheck(this, ButtonLabel);
+    return possibleConstructorReturn(this, (ButtonLabel.__proto__ || Object.getPrototypeOf(ButtonLabel)).apply(this, arguments));
   }
 
-  createClass(ButtonLabel$$1, [{
+  createClass(ButtonLabel, [{
     key: 'render',
     value: function render() {
 
       return _react__default.createElement(
         'h4',
-        { className: styles.button_label + ' ' + props.classes + ' button_label' },
-        props.label
+        { className: style.button_label + ' ' + this.props.classes + ' button_label' },
+        this.props.label
       );
     }
   }]);
-  return ButtonLabel$$1;
+  return ButtonLabel;
 }(_react.Component);
 
 var interopRequireDefault$1 = createCommonjsModule(function (module) {
@@ -10689,8 +10690,493 @@ var _Button = interopRequireDefault$1(Button_1);
 
 var ButtonBase$2 = unwrapExports(Button$1);
 
+function createBroadcast (initialState) {
+  var listeners = {};
+  var id = 1;
+  var _state = initialState;
+
+  function getState () {
+    return _state
+  }
+
+  function setState (state) {
+    _state = state;
+    var keys = Object.keys(listeners);
+    var i = 0;
+    var len = keys.length;
+    for (; i < len; i++) {
+      // if a listener gets unsubscribed during setState we just skip it
+      if (listeners[keys[i]]) { listeners[keys[i]](state); }
+    }
+  }
+
+  // subscribe to changes and return the subscriptionId
+  function subscribe (listener) {
+    if (typeof listener !== 'function') {
+      throw new Error('listener must be a function.')
+    }
+    var currentId = id;
+    listeners[currentId] = listener;
+    id += 1;
+    return currentId
+  }
+
+  // remove subscription by removing the listener function
+  function unsubscribe (id) {
+    listeners[id] = undefined;
+  }
+
+  return { getState: getState, setState: setState, subscribe: subscribe, unsubscribe: unsubscribe }
+}
+
+
+var brcast_es = Object.freeze({
+	default: createBroadcast
+});
+
+var exactProp_1 = createCommonjsModule(function (module, exports) {
+
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.specialProperty = void 0;
+
+var _defineProperty2 = interopRequireDefault$1(defineProperty$1);
+
+var _objectSpread3 = interopRequireDefault$1(objectSpread);
+
+// This module is based on https://github.com/airbnb/prop-types-exact repository.
+// However, in order to reduce the number of dependencies and to remove some extra safe checks
+// the module was forked.
+// Only exported for test purposes.
+var specialProperty = "exact-prop: \u200B";
+exports.specialProperty = specialProperty;
+
+function exactProp(propTypes) {
+
+  return (0, _objectSpread3.default)({}, propTypes, (0, _defineProperty2.default)({}, specialProperty, function (props) {
+    var unsupportedProps = Object.keys(props).filter(function (prop) {
+      return !propTypes.hasOwnProperty(prop);
+    });
+
+    if (unsupportedProps.length > 0) {
+      return new Error("The following properties are not supported: ".concat(unsupportedProps.map(function (prop) {
+        return "`".concat(prop, "`");
+      }).join(', '), ". Please remove them."));
+    }
+
+    return null;
+  }));
+}
+
+var _default = exactProp;
+exports.default = _default;
+});
+
+unwrapExports(exactProp_1);
+var exactProp_2 = exactProp_1.specialProperty;
+
+var require$$9 = ( brcast_es && createBroadcast ) || brcast_es;
+
+var MuiThemeProvider_1 = createCommonjsModule(function (module, exports) {
+
+
+
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _objectSpread2 = interopRequireDefault$1(objectSpread);
+
+var _defineProperty2 = interopRequireDefault$1(defineProperty$1);
+
+var _classCallCheck2 = interopRequireDefault$1(classCallCheck$1);
+
+var _createClass2 = interopRequireDefault$1(createClass$1);
+
+var _possibleConstructorReturn2 = interopRequireDefault$1(possibleConstructorReturn$1);
+
+var _inherits2 = interopRequireDefault$1(inherits$1);
+
+var _react$$1 = interopRequireDefault$1(_react__default);
+
+var _propTypes = interopRequireDefault$1(propTypes);
+
+var _warning = interopRequireDefault$1(warning_1);
+
+var _brcast = interopRequireDefault$1(require$$9);
+
+var _themeListener = interopRequireWildcard$1(themeListener_1);
+
+var _exactProp = interopRequireDefault$1(exactProp_1);
+
+/**
+ * This component takes a `theme` property.
+ * It makes the `theme` available down the React tree thanks to React context.
+ * This component should preferably be used at **the root of your component tree**.
+ */
+var MuiThemeProvider =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(MuiThemeProvider, _React$Component);
+
+  // We are not using the React state in order to avoid unnecessary rerender.
+  function MuiThemeProvider(props, context) {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, MuiThemeProvider);
+    _this = (0, _possibleConstructorReturn2.default)(this, (MuiThemeProvider.__proto__ || Object.getPrototypeOf(MuiThemeProvider)).call(this, props, context)); // Get the outer theme from the context, can be null
+
+    _this.broadcast = (0, _brcast.default)();
+    _this.unsubscribeId = null;
+    _this.outerTheme = null;
+    _this.outerTheme = _themeListener.default.initial(context); // Propagate the theme so it can be accessed by the children
+
+    _this.broadcast.setState(_this.mergeOuterLocalTheme(_this.props.theme));
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(MuiThemeProvider, [{
+    key: "getChildContext",
+    value: function getChildContext() {
+      var _ref;
+
+      var _props = this.props,
+          sheetsManager = _props.sheetsManager,
+          disableStylesGeneration = _props.disableStylesGeneration;
+      var muiThemeProviderOptions = this.context.muiThemeProviderOptions || {};
+
+      if (sheetsManager !== undefined) {
+        muiThemeProviderOptions.sheetsManager = sheetsManager;
+      }
+
+      if (disableStylesGeneration !== undefined) {
+        muiThemeProviderOptions.disableStylesGeneration = disableStylesGeneration;
+      }
+
+      return _ref = {}, (0, _defineProperty2.default)(_ref, _themeListener.CHANNEL, this.broadcast), (0, _defineProperty2.default)(_ref, "muiThemeProviderOptions", muiThemeProviderOptions), _ref;
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      // Subscribe on the outer theme, if present
+      this.unsubscribeId = _themeListener.default.subscribe(this.context, function (outerTheme) {
+        _this2.outerTheme = outerTheme; // Forward the parent theme update to the children
+
+        _this2.broadcast.setState(_this2.mergeOuterLocalTheme(_this2.props.theme));
+      });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      // Propagate a local theme update
+      if (this.props.theme !== prevProps.theme) {
+        this.broadcast.setState(this.mergeOuterLocalTheme(this.props.theme));
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      if (this.unsubscribeId !== null) {
+        _themeListener.default.unsubscribe(this.context, this.unsubscribeId);
+      }
+    } // Simple merge between the outer theme and the local theme
+
+  }, {
+    key: "mergeOuterLocalTheme",
+    value: function mergeOuterLocalTheme(localTheme) {
+      // To support composition of theme.
+      if (typeof localTheme === 'function') {
+        (0, _warning.default)(this.outerTheme, ['Material-UI: you are providing a theme function property ' + 'to the MuiThemeProvider component:', '<MuiThemeProvider theme={outerTheme => outerTheme} />', 'However, no outer theme is present.', 'Make sure a theme is already injected higher in the React tree ' + 'or provide a theme object.'].join('\n'));
+        return localTheme(this.outerTheme);
+      }
+
+      if (!this.outerTheme) {
+        return localTheme;
+      }
+
+      return (0, _objectSpread2.default)({}, this.outerTheme, localTheme);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      // TODO move the sheetsManager property to a different component.
+      // warning(
+      //   typeof window !== 'undefined' || this.props.sheetsManager,
+      //   [
+      //     'Material-UI: you need to provide a sheetsManager to the MuiThemeProvider ' +
+      //       'when rendering on the server.',
+      //     'If you do not, you might experience a memory leak',
+      //   ].join('\n'),
+      // );
+      return this.props.children;
+    }
+  }]);
+  return MuiThemeProvider;
+}(_react$$1.default.Component);
+
+MuiThemeProvider.propTypes = {
+  /**
+   * You can wrap a node.
+   */
+  children: _propTypes.default.node.isRequired,
+
+  /**
+   * You can disable the generation of the styles with this option.
+   * It can be useful when traversing the React tree outside of the HTML
+   * rendering step on the server.
+   * Let's say you are using react-apollo to extract all
+   * the queries made by the interface server side.
+   * You can significantly speed up the traversal with this property.
+   */
+  disableStylesGeneration: _propTypes.default.bool,
+
+  /**
+   * The sheetsManager is used to deduplicate style sheet injection in the page.
+   * It's deduplicating using the (theme, styles) couple.
+   * On the server, you should provide a new instance for each request.
+   */
+  sheetsManager: _propTypes.default.object,
+
+  /**
+   * A theme object.
+   */
+  theme: _propTypes.default.oneOfType([_propTypes.default.object, _propTypes.default.func]).isRequired
+};
+MuiThemeProvider.propTypes = (0, _exactProp.default)(MuiThemeProvider.propTypes);
+MuiThemeProvider.childContextTypes = (0, _objectSpread2.default)({}, _themeListener.default.contextTypes, {
+  muiThemeProviderOptions: _propTypes.default.object
+});
+MuiThemeProvider.contextTypes = (0, _objectSpread2.default)({}, _themeListener.default.contextTypes, {
+  muiThemeProviderOptions: _propTypes.default.object
+});
+var _default = MuiThemeProvider;
+exports.default = _default;
+});
+
+unwrapExports(MuiThemeProvider_1);
+
+var createStyles_1 = createCommonjsModule(function (module, exports) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = createStyles;
+
+function createStyles(s) {
+  return s;
+}
+});
+
+unwrapExports(createStyles_1);
+
+var withTheme_1 = createCommonjsModule(function (module, exports) {
+
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = interopRequireDefault$1(_extends_1);
+
+var _objectWithoutProperties2 = interopRequireDefault$1(objectWithoutProperties$1);
+
+var _classCallCheck2 = interopRequireDefault$1(classCallCheck$1);
+
+var _createClass2 = interopRequireDefault$1(createClass$1);
+
+var _possibleConstructorReturn2 = interopRequireDefault$1(possibleConstructorReturn$1);
+
+var _inherits2 = interopRequireDefault$1(inherits$1);
+
+var _react$$1 = interopRequireDefault$1(_react__default);
+
+var _propTypes = interopRequireDefault$1(propTypes);
+
+var _hoistNonReactStatics = interopRequireDefault$1(hoistNonReactStatics_cjs);
+
+var _wrapDisplayName = interopRequireDefault$1(wrapDisplayName_1);
+
+var _createMuiTheme = interopRequireDefault$1(createMuiTheme_1);
+
+var _themeListener = interopRequireDefault$1(themeListener_1);
+
+var defaultTheme;
+
+function getDefaultTheme() {
+  if (defaultTheme) {
+    return defaultTheme;
+  }
+
+  defaultTheme = (0, _createMuiTheme.default)();
+  return defaultTheme;
+} // Provide the theme object as a property to the input component.
+
+
+var withTheme = function withTheme() {
+  return function (Component) {
+    var WithTheme =
+    /*#__PURE__*/
+    function (_React$Component) {
+      (0, _inherits2.default)(WithTheme, _React$Component);
+
+      function WithTheme(props, context) {
+        var _this;
+
+        (0, _classCallCheck2.default)(this, WithTheme);
+        _this = (0, _possibleConstructorReturn2.default)(this, (WithTheme.__proto__ || Object.getPrototypeOf(WithTheme)).call(this, props, context));
+        _this.unsubscribeId = null;
+        _this.state = {};
+        _this.state = {
+          // We use || as the function call is lazy evaluated.
+          theme: _themeListener.default.initial(context) || getDefaultTheme()
+        };
+        return _this;
+      }
+
+      (0, _createClass2.default)(WithTheme, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+          var _this2 = this;
+
+          this.unsubscribeId = _themeListener.default.subscribe(this.context, function (theme) {
+            _this2.setState({
+              theme: theme
+            });
+          });
+        }
+      }, {
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+          if (this.unsubscribeId !== null) {
+            _themeListener.default.unsubscribe(this.context, this.unsubscribeId);
+          }
+        }
+      }, {
+        key: "render",
+        value: function render() {
+          var _props = this.props,
+              innerRef = _props.innerRef,
+              other = (0, _objectWithoutProperties2.default)(_props, ["innerRef"]);
+          return _react$$1.default.createElement(Component, (0, _extends2.default)({
+            theme: this.state.theme,
+            ref: innerRef
+          }, other));
+        }
+      }]);
+      return WithTheme;
+    }(_react$$1.default.Component);
+
+    WithTheme.propTypes = {
+      /**
+       * Use that property to pass a ref callback to the decorated component.
+       */
+      innerRef: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.object])
+    };
+    WithTheme.contextTypes = _themeListener.default.contextTypes;
+
+    {
+      WithTheme.displayName = (0, _wrapDisplayName.default)(Component, 'WithTheme');
+    }
+
+    (0, _hoistNonReactStatics.default)(WithTheme, Component);
+
+    {
+      // Exposed for test purposes.
+      WithTheme.Naked = Component;
+    }
+
+    return WithTheme;
+  };
+};
+
+var _default = withTheme;
+exports.default = _default;
+});
+
+unwrapExports(withTheme_1);
+
+var styles = createCommonjsModule(function (module, exports) {
+
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "createGenerateClassName", {
+  enumerable: true,
+  get: function get() {
+    return _createGenerateClassName.default;
+  }
+});
+Object.defineProperty(exports, "createMuiTheme", {
+  enumerable: true,
+  get: function get() {
+    return _createMuiTheme.default;
+  }
+});
+Object.defineProperty(exports, "jssPreset", {
+  enumerable: true,
+  get: function get() {
+    return _jssPreset.default;
+  }
+});
+Object.defineProperty(exports, "MuiThemeProvider", {
+  enumerable: true,
+  get: function get() {
+    return _MuiThemeProvider.default;
+  }
+});
+Object.defineProperty(exports, "createStyles", {
+  enumerable: true,
+  get: function get() {
+    return _createStyles.default;
+  }
+});
+Object.defineProperty(exports, "withStyles", {
+  enumerable: true,
+  get: function get() {
+    return _withStyles.default;
+  }
+});
+Object.defineProperty(exports, "withTheme", {
+  enumerable: true,
+  get: function get() {
+    return _withTheme.default;
+  }
+});
+
+var _createGenerateClassName = interopRequireDefault$1(createGenerateClassName_1);
+
+var _createMuiTheme = interopRequireDefault$1(createMuiTheme_1);
+
+var _jssPreset = interopRequireDefault$1(jssPreset_1);
+
+var _MuiThemeProvider = interopRequireDefault$1(MuiThemeProvider_1);
+
+var _createStyles = interopRequireDefault$1(createStyles_1);
+
+var _withStyles = interopRequireDefault$1(withStyles_1);
+
+var _withTheme = interopRequireDefault$1(withTheme_1);
+});
+
+unwrapExports(styles);
+var styles_1 = styles.MuiThemeProvider;
+var styles_2 = styles.createMuiTheme;
+
 var css$1 = ".Button_primary_button__hJt9a {\n  color: white;\n  background-color: white;\n  border: 1px solid blue; }\n  .Button_primary_button__hJt9a .Button_button_label__2RVp7 {\n    color: blue; }\n  .Button_primary_button__hJt9a:hover {\n    background-color: blue; }\n    .Button_primary_button__hJt9a:hover .Button_button_label__2RVp7 {\n      color: white; }\n  .Button_primary_button__hJt9a.Button_active__z6dVU {\n    background-color: blue;\n    -webkit-box-shadow: none;\n    box-shadow: none; }\n    .Button_primary_button__hJt9a.Button_active__z6dVU .Button_button_label__2RVp7 {\n      color: white; }\n  .Button_primary_button__hJt9a.Button_disabled__1iA32 {\n    background-color: gray;\n    border-color: gray;\n    -webkit-box-shadow: none;\n    box-shadow: none; }\n    .Button_primary_button__hJt9a.Button_disabled__1iA32 .Button_button_label__2RVp7 {\n      color: white; }\n";
-var style = { "primary_button": "Button_primary_button__hJt9a", "button_label": "Button_button_label__2RVp7", "active": "Button_active__z6dVU", "disabled": "Button_disabled__1iA32" };
+var style$1 = { "primary_button": "Button_primary_button__hJt9a", "button_label": "Button_button_label__2RVp7", "active": "Button_active__z6dVU", "disabled": "Button_disabled__1iA32" };
 styleInject(css$1);
 
 var Button$2 = function (_Component) {
@@ -10705,7 +11191,7 @@ var Button$2 = function (_Component) {
       hovered: false,
       displayable: false
     };
-    _this.themeOverride = styles$1.createMuiTheme({
+    _this.themeOverride = styles_2({
       overrides: {
         MuiButton: {
           root: {
@@ -10731,10 +11217,10 @@ var Button$2 = function (_Component) {
       return _react__default.createElement(
         'div',
         {
-          className: classnames(style.primary_button)
+          className: classnames(style$1.primary_button)
         },
         _react__default.createElement(
-          styles$1.MuiThemeProvider,
+          styles_1,
           { theme: this.themeOverride },
           _react__default.createElement(ButtonBase$2, {
             disableRipple: true,
@@ -10742,12 +11228,12 @@ var Button$2 = function (_Component) {
             focusRipple: false,
 
             classes: {
-              root: classnames(style.primary_button) + "primary_button"
+              root: classnames(style$1.primary_button) + "primary_button"
             },
 
-            children: _react__default.createElement(ButtonLabel$1, {
+            children: _react__default.createElement(ButtonLabel, {
               label: this.props.label,
-              classes: classnames(style.button_label)
+              classes: classnames(style$1.button_label)
             })
 
           })
@@ -10768,7 +11254,7 @@ var Button$2 = function (_Component) {
 }(_react.Component);
 
 var css$2 = ".PopupMenu_PopupMenu__8TfA4 {\n  position: relative; }\n  .PopupMenu_PopupMenu__8TfA4 h1 {\n    background: green;\n    color: orange; }\n\n.PopupMenu_button__20m_Y {\n  padding: 5px;\n  border-radius: 2px;\n  width: 30px;\n  height: 30px;\n  transition: background 0.25s ease-in-out;\n  background: blue; }\n  .PopupMenu_button__20m_Y:hover, .PopupMenu_button__20m_Y.active {\n    background: yellow; }\n\n.PopupMenu_popover__3hd_Z {\n  background: white;\n  position: absolute;\n  width: calc(200px - 10px);\n  height: calc(200px - 10px);\n  left: calc(-100px + 50%);\n  top: 60px;\n  border-radius: 5px;\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);\n  transition: opacity 0.5s ease-in-out;\n  opacity: 0;\n  padding: 5px;\n  z-index: 1; }\n  .PopupMenu_popover__3hd_Z.active {\n    opacity: 1; }\n  .PopupMenu_popover__3hd_Z:hover + .PopupMenu_button__20m_Y {\n    background: rgba(0, 0, 0, 0.1); }\n  .PopupMenu_popover__3hd_Z:before {\n    content: \"\";\n    position: absolute;\n    display: block;\n    top: -20px;\n    left: calc(50% - 10px);\n    border: 10px solid white;\n    border-color: transparent transparent white transparent; }\n\n.PopupMenu_direction-top__1oqgB .PopupMenu_popover__3hd_Z {\n  top: auto;\n  bottom: 60px; }\n  .PopupMenu_direction-top__1oqgB .PopupMenu_popover__3hd_Z:before {\n    top: auto;\n    bottom: -20px;\n    border-color: white transparent transparent transparent; }\n\n.PopupMenu_direction-left__mSrJK .PopupMenu_popover__3hd_Z {\n  top: -100px;\n  left: auto !important;\n  right: 60px; }\n  .PopupMenu_direction-left__mSrJK .PopupMenu_popover__3hd_Z:before {\n    left: auto;\n    right: -20px;\n    top: calc(50% - 10px);\n    border-color: transparent transparent transparent white; }\n\n.PopupMenu_direction-right__yrXfz .PopupMenu_popover__3hd_Z {\n  top: -100px;\n  right: auto !important;\n  left: 60px !important; }\n  .PopupMenu_direction-right__yrXfz .PopupMenu_popover__3hd_Z:before {\n    right: auto;\n    left: -20px;\n    top: calc(50% - 10px);\n    border-color: transparent white transparent transparent; }\n";
-var style$1 = { "PopupMenu": "PopupMenu_PopupMenu__8TfA4", "button": "PopupMenu_button__20m_Y", "popover": "PopupMenu_popover__3hd_Z", "direction-top": "PopupMenu_direction-top__1oqgB", "direction-left": "PopupMenu_direction-left__mSrJK", "direction-right": "PopupMenu_direction-right__yrXfz" };
+var style$2 = { "PopupMenu": "PopupMenu_PopupMenu__8TfA4", "button": "PopupMenu_button__20m_Y", "popover": "PopupMenu_popover__3hd_Z", "direction-top": "PopupMenu_direction-top__1oqgB", "direction-left": "PopupMenu_direction-left__mSrJK", "direction-right": "PopupMenu_direction-right__yrXfz" };
 styleInject(css$2);
 
 var PopupMenu = function (_Component) {
@@ -10834,14 +11320,14 @@ var PopupMenu = function (_Component) {
       return _react__default.createElement(
         'div',
         {
-          className: classnames(style$1.PopupMenu, style$1['direction-' + direction])
+          className: classnames(style$2.PopupMenu, style$2['direction-' + direction])
         },
         _react__default.createElement(
           'div',
           {
             onMouseOver: this.hover,
             onMouseOut: this.unhover,
-            className: classnames(style$1.button, {
+            className: classnames(style$2.button, {
               active: hovered
             })
           },
@@ -10857,7 +11343,7 @@ var PopupMenu = function (_Component) {
           {
             onMouseOver: this.hover,
             onMouseOut: this.unhover,
-            className: classnames(style$1.popover, {
+            className: classnames(style$2.popover, {
               active: hovered
             }),
 

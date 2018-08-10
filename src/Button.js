@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import ButtonLabel from './ButtonLabel';
 import ButtonBase from '@material-ui/core/Button';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import style from './Button.scss';
 import cx from 'classnames';
