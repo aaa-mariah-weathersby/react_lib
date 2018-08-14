@@ -34,6 +34,7 @@
   },
   "jest": {
     "verbose": true,
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js",
     "transform": {
       "^.+\\.jsx$": "babel-jest",
       "^.+\\.js$": "babel-jest"

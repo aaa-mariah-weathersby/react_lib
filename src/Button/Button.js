@@ -9,7 +9,7 @@ import style from './Button.scss';
 import cx from 'classnames';
 import clone from 'clone';
 
-
+//need both exports [in class and footer]
 export class Button extends Component {
 
   constructor(props) {
