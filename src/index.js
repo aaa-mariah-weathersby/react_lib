@@ -1,3 +1,3 @@
 // index.js
-export * from './Button/Button';
-export * from './PopupMenu';
+export * from './components/Button/Button';
+export * from './components/Input/Input';

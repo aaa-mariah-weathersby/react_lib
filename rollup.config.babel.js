@@ -8,7 +8,7 @@ import postcss from 'rollup-plugin-postcss';
 
 export default {
   input: './src/index.js',
-  moduleName: 'ReactRectanglePopupMenu',
+  moduleName: 'AceDesignSystem',
   sourcemap: true,
 
   // output: {
