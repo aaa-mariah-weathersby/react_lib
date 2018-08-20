@@ -1,4 +1,5 @@
 // -- Fonts -- //
+
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i');
 
 @mixin font-presets(
@@ -53,3 +54,48 @@
     -o-transition: $args;
     transition: $args;
   }
+
+
+  // -- Transform -- //
+
+@mixin transform($args...) {
+    -webkit-transform: $args;
+    -moz-transform: $args;
+    -ms-transform: $args;
+    -o-transform: $args;
+    transform: $args;
+}  
+
+
+// -- Media Queries -- //
+
+@mixin respond-above($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        $breakpoint-value: map-get($breakpoints, $breakpoint);
+  
+        @media (min-width: $breakpoint-value) {
+            @content;
+        }
+    
+    } @else {
+        @warn 'Invalid breakpoint: #{$breakpoint}.';
+    }
+
+}
+
+@mixin respond-below($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        $breakpoint-value: map-get($breakpoints, $breakpoint);
+  
+        @media (max-width: ($breakpoint-value - 1)) {
+            @content;
+        }
+    
+    } @else {
+        @warn 'Invalid breakpoint: #{$breakpoint}.';
+    }
+
+}
+  
+
+  

@@ -4,6 +4,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
+import image from 'rollup-plugin-img';
 
 
 export default {
@@ -30,6 +31,7 @@ export default {
   ],
 
   plugins: [
+    image(),
     postcss({
       modules: true
     }),

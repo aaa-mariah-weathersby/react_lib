@@ -5,7 +5,7 @@ import Input from '../Input';
 import { shallow, mount } from 'enzyme';
 
 
-describe.only('Input Field', () => {
+describe('Input Field', () => {
 
     beforeEach(() => {
 

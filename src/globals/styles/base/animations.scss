@@ -1,6 +1,45 @@
 @import 'mixins.scss';
 @import 'variables.scss';
 
+
+// Helper Animations
+
+@keyframes helper-container-in {
+    from {
+        max-height: 0px;
+    }
+    to {
+        max-height: 130px;       
+    }
+}
+
+@keyframes helper-in {
+    from {
+        -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+        transform: scale(0);
+    }
+    to {
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);        
+    }
+}
+
+@keyframes full-helper-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0; 
+        display: none;
+        visibility: hidden;    
+    }
+}
+
+// Helper Animations
+
+
 @include keyframes(ghost-out){
     from { 
         max-height: 65px; 

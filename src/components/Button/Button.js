@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import ButtonLabel from './ButtonLabel';
+import ButtonLabel from '../ButtonLabel/ButtonLabel';
 import ButtonBase from '@material-ui/core/Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import style from './Button.scss';
+import style from './styles/Button.scss';
 import cx from 'classnames';
-import clone from 'clone';
 
 //need both exports [in class and footer]
 export class Button extends Component {
@@ -23,10 +22,11 @@ export class Button extends Component {
     this.themeOverride = createMuiTheme({
       overrides: {
         MuiButton: {
-          root: {
+          root: {          
             '&:hover':{
               backgroundColor: 'visible'
-            }
+            },
+            marginBottom: '1em',
           }
         },
         MuiButtonBase: {
@@ -54,7 +54,8 @@ export class Button extends Component {
           disableRipple = {true}
           disableTouchRipple = {true}
           focusRipple = {false}
-        
+          onClick = {this.props.onClick}
+
           classes = {{
             root: cx(style.primary_button) + ` ${rootClasses} primary_button`
           }}
@@ -73,5 +74,11 @@ export class Button extends Component {
     )
   }
 }
+
+Button.propTypes = {
+  active: PropTypes.bool,
+  onClick: PropTypes.func,
+  label: PropTypes.string.isRequired,
+};
 
 export default Button;

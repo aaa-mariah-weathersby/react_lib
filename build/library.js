@@ -2,9 +2,9 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('react-dom')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'react', 'react-dom'], factory) :
 	(factory((global.AceDesignSystem = {}),global.React,global.ReactDOM));
-}(this, (function (exports,_react,reactDom) { 'use strict';
+}(this, (function (exports,React,reactDom) { 'use strict';
 
-var _react__default = 'default' in _react ? _react['default'] : _react;
+var React__default = 'default' in React ? React['default'] : React;
 reactDom = reactDom && reactDom.hasOwnProperty('default') ? reactDom['default'] : reactDom;
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -796,8 +796,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".ButtonLabel_button_label__1tD2p {\n  color: inherit;\n  font-weight: 400;\n  text-transform: none;\n  margin: .5em; }\n";
-var style = { "button_label": "ButtonLabel_button_label__1tD2p" };
+var css = "@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n.ButtonLabel_button_label__2XXCf {\n  text-transform: none;\n  margin: .5em;\n  font-family: 'Roboto', Helvetica, Arial, sans-serif;\n  font-size: 1em;\n  color: #555;\n  font-weight: 400; }\n";
+var style = { "button_label": "ButtonLabel_button_label__2XXCf" };
 styleInject(css);
 
 var classnames = createCommonjsModule(function (module) {
@@ -1188,15 +1188,23 @@ var ButtonLabel = function (_Component) {
     key: 'render',
     value: function render() {
 
-      return _react__default.createElement(
-        'h4',
-        { className: style.button_label + ' ' + this.props.classes + ' button_label' },
-        this.props.label
+      return (
+        // <h4 className={`${style.button_label} ${this.props.classes} button_label`}>
+        React__default.createElement(
+          'h4',
+          { className: classnames(style.button_label) + (' ' + this.props.classes + ' button_label') },
+          this.props.label
+        )
       );
     }
   }]);
   return ButtonLabel;
-}(_react.Component);
+}(React.Component);
+
+ButtonLabel.propTypes = {
+  classes: propTypes.string,
+  label: propTypes.string.isRequired
+};
 
 var interopRequireDefault$1 = createCommonjsModule(function (module) {
 function _interopRequireDefault(obj) {
@@ -7267,7 +7275,7 @@ var _inherits2 = interopRequireDefault$1(inherits$1);
 
 var _objectWithoutProperties2 = interopRequireDefault$1(objectWithoutProperties$1);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -7568,14 +7576,14 @@ var withStyles = function withStyles(stylesOrCreator) {
             more.theme = this.theme;
           }
 
-          return _react$$1.default.createElement(Component, (0, _extends2.default)({}, more, {
+          return _react.default.createElement(Component, (0, _extends2.default)({}, more, {
             classes: this.getClasses(),
             ref: innerRef
           }, other));
         }
       }]);
       return WithStyles;
-    }(_react$$1.default.Component);
+    }(_react.default.Component);
 
     WithStyles.propTypes = {
       /**
@@ -8114,11 +8122,11 @@ exports.getNextChildMapping = getNextChildMapping;
  */
 function getChildMapping(children, mapFn) {
   var mapper = function mapper(child) {
-    return mapFn && (0, _react__default.isValidElement)(child) ? mapFn(child) : child;
+    return mapFn && (0, React__default.isValidElement)(child) ? mapFn(child) : child;
   };
 
   var result = Object.create(null);
-  if (children) _react__default.Children.map(children, function (c) {
+  if (children) React__default.Children.map(children, function (c) {
     return c;
   }).forEach(function (child) {
     // run the map function here instead so that the key is the computed one
@@ -8194,7 +8202,7 @@ function getProp(child, prop, props) {
 
 function getInitialChildMapping(props, onExited) {
   return getChildMapping(props.children, function (child) {
-    return (0, _react__default.cloneElement)(child, {
+    return (0, React__default.cloneElement)(child, {
       onExited: onExited.bind(null, child),
       in: true,
       appear: getProp(child, 'appear', props),
@@ -8211,18 +8219,18 @@ function getNextChildMapping(nextProps, prevChildMapping, onExited) {
   Object.keys(children).forEach(function (key) {
     var child = children[key];
 
-    if (!(0, _react__default.isValidElement)(child)) return;
+    if (!(0, React__default.isValidElement)(child)) return;
 
     var hasPrev = key in prevChildMapping;
     var hasNext = key in nextChildMapping;
 
     var prevChild = prevChildMapping[key];
-    var isLeaving = (0, _react__default.isValidElement)(prevChild) && !prevChild.props.in;
+    var isLeaving = (0, React__default.isValidElement)(prevChild) && !prevChild.props.in;
 
     // item is new (entering)
     if (hasNext && (!hasPrev || isLeaving)) {
       // console.log('entering', key)
-      children[key] = (0, _react__default.cloneElement)(child, {
+      children[key] = (0, React__default.cloneElement)(child, {
         onExited: onExited.bind(null, child),
         in: true,
         exit: getProp(child, 'exit', nextProps),
@@ -8231,12 +8239,12 @@ function getNextChildMapping(nextProps, prevChildMapping, onExited) {
     } else if (!hasNext && hasPrev && !isLeaving) {
       // item is old (exiting)
       // console.log('leaving', key)
-      children[key] = (0, _react__default.cloneElement)(child, { in: false });
-    } else if (hasNext && hasPrev && (0, _react__default.isValidElement)(prevChild)) {
+      children[key] = (0, React__default.cloneElement)(child, { in: false });
+    } else if (hasNext && hasPrev && (0, React__default.isValidElement)(prevChild)) {
       // item hasn't changed transition states
       // copy over the last transition props;
       // console.log('unchanged', key)
-      children[key] = (0, _react__default.cloneElement)(child, {
+      children[key] = (0, React__default.cloneElement)(child, {
         onExited: onExited.bind(null, child),
         in: prevChild.props.in,
         exit: getProp(child, 'exit', nextProps),
@@ -8267,7 +8275,7 @@ var _propTypes2 = _interopRequireDefault(propTypes);
 
 
 
-var _react2 = _interopRequireDefault(_react__default);
+var _react2 = _interopRequireDefault(React__default);
 
 
 
@@ -8528,7 +8536,7 @@ var PropTypes$$1 = _interopRequireWildcard(propTypes);
 
 
 
-var _react2 = _interopRequireDefault(_react__default);
+var _react2 = _interopRequireDefault(React__default);
 
 
 
@@ -9146,7 +9154,7 @@ var _possibleConstructorReturn2 = interopRequireDefault$1(possibleConstructorRet
 
 var _inherits2 = interopRequireDefault$1(inherits$1);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -9211,19 +9219,19 @@ function (_React$Component) {
         left: -(rippleSize / 2) + rippleX
       };
       var childClassName = (0, _classnames.default)(classes.child, (_classNames2 = {}, (0, _defineProperty2.default)(_classNames2, classes.childLeaving, leaving), (0, _defineProperty2.default)(_classNames2, classes.childPulsate, pulsate), _classNames2));
-      return _react$$1.default.createElement(_Transition.default, (0, _extends2.default)({
+      return _react.default.createElement(_Transition.default, (0, _extends2.default)({
         onEnter: this.handleEnter,
         onExit: this.handleExit
-      }, other), _react$$1.default.createElement("span", {
+      }, other), _react.default.createElement("span", {
         className: rippleClassName,
         style: rippleStyles
-      }, _react$$1.default.createElement("span", {
+      }, _react.default.createElement("span", {
         className: childClassName
       })));
     }
   }]);
   return Ripple;
-}(_react$$1.default.Component);
+}(_react.default.Component);
 
 Ripple.propTypes = {
   /**
@@ -9291,7 +9299,7 @@ var _inherits2 = interopRequireDefault$1(inherits$1);
 
 var _assertThisInitialized2 = interopRequireDefault$1(assertThisInitialized);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -9522,7 +9530,7 @@ function (_React$PureComponent) {
       _this.setState(function (state) {
         return {
           nextKey: state.nextKey + 1,
-          ripples: (0, _toConsumableArray2.default)(state.ripples).concat([_react$$1.default.createElement(_Ripple.default, {
+          ripples: (0, _toConsumableArray2.default)(state.ripples).concat([_react.default.createElement(_Ripple.default, {
             key: state.nextKey,
             classes: _this.props.classes,
             timeout: {
@@ -9576,7 +9584,7 @@ function (_React$PureComponent) {
           classes = _props.classes,
           className = _props.className,
           other = (0, _objectWithoutProperties2.default)(_props, ["center", "classes", "className"]);
-      return _react$$1.default.createElement(_TransitionGroup.default, (0, _extends2.default)({
+      return _react.default.createElement(_TransitionGroup.default, (0, _extends2.default)({
         component: "span",
         enter: true,
         exit: true,
@@ -9585,7 +9593,7 @@ function (_React$PureComponent) {
     }
   }]);
   return TouchRipple;
-}(_react$$1.default.PureComponent);
+}(_react.default.PureComponent);
 
 TouchRipple.propTypes = {
   /**
@@ -9687,7 +9695,7 @@ var _inherits2 = interopRequireDefault$1(inherits$1);
 
 var _assertThisInitialized2 = interopRequireDefault$1(assertThisInitialized);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -9757,7 +9765,7 @@ var styles = {
 
 exports.styles = styles;
 
-if ("development" !== 'production' && !_react$$1.default.createContext) {
+if ("development" !== 'production' && !_react.default.createContext) {
   throw new Error('Material-UI: react@16.3.0 or greater is required.');
 }
 /**
@@ -9959,7 +9967,7 @@ function (_React$Component) {
         buttonProps.role = 'button';
       }
 
-      return _react$$1.default.createElement(ComponentProp, (0, _extends2.default)({
+      return _react.default.createElement(ComponentProp, (0, _extends2.default)({
         onBlur: this.handleBlur,
         onFocus: this.handleFocus,
         onKeyDown: this.handleKeyDown,
@@ -9973,7 +9981,7 @@ function (_React$Component) {
         tabIndex: disabled ? '-1' : tabIndex,
         className: className,
         ref: buttonRef
-      }, buttonProps, other), children, !disableRipple && !disabled ? _react$$1.default.createElement(_TouchRipple.default, (0, _extends2.default)({
+      }, buttonProps, other), children, !disableRipple && !disabled ? _react.default.createElement(_TouchRipple.default, (0, _extends2.default)({
         innerRef: this.onRippleRef,
         center: centerRipple
       }, TouchRippleProps)) : null);
@@ -10003,7 +10011,7 @@ function (_React$Component) {
     }
   }]);
   return ButtonBase;
-}(_react$$1.default.Component);
+}(_react.default.Component);
 
 ButtonBase.propTypes = {
   /**
@@ -10314,7 +10322,7 @@ var _objectWithoutProperties2 = interopRequireDefault$1(objectWithoutProperties$
 
 var _objectSpread2 = interopRequireDefault$1(objectSpread);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -10559,12 +10567,12 @@ function Button(props) {
   var contained = variant === 'contained' || variant === 'raised';
   var text = variant === 'text' || variant === 'flat' || variant === 'outlined';
   var className = (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes.fab, fab), (0, _defineProperty2.default)(_classNames, classes.mini, fab && mini), (0, _defineProperty2.default)(_classNames, classes.extendedFab, variant === 'extendedFab'), (0, _defineProperty2.default)(_classNames, classes.text, text), (0, _defineProperty2.default)(_classNames, classes.textPrimary, text && color === 'primary'), (0, _defineProperty2.default)(_classNames, classes.textSecondary, text && color === 'secondary'), (0, _defineProperty2.default)(_classNames, classes.flat, variant === 'text' || variant === 'flat'), (0, _defineProperty2.default)(_classNames, classes.flatPrimary, (variant === 'text' || variant === 'flat') && color === 'primary'), (0, _defineProperty2.default)(_classNames, classes.flatSecondary, (variant === 'text' || variant === 'flat') && color === 'secondary'), (0, _defineProperty2.default)(_classNames, classes.contained, contained || fab), (0, _defineProperty2.default)(_classNames, classes.containedPrimary, (contained || fab) && color === 'primary'), (0, _defineProperty2.default)(_classNames, classes.containedSecondary, (contained || fab) && color === 'secondary'), (0, _defineProperty2.default)(_classNames, classes.raised, contained || fab), (0, _defineProperty2.default)(_classNames, classes.raisedPrimary, (contained || fab) && color === 'primary'), (0, _defineProperty2.default)(_classNames, classes.raisedSecondary, (contained || fab) && color === 'secondary'), (0, _defineProperty2.default)(_classNames, classes.outlined, variant === 'outlined'), (0, _defineProperty2.default)(_classNames, classes["size".concat((0, helpers.capitalize)(size))], size !== 'medium'), (0, _defineProperty2.default)(_classNames, classes.disabled, disabled), (0, _defineProperty2.default)(_classNames, classes.fullWidth, fullWidth), (0, _defineProperty2.default)(_classNames, classes.colorInherit, color === 'inherit'), _classNames), classNameProp);
-  return _react$$1.default.createElement(_ButtonBase.default, (0, _extends2.default)({
+  return _react.default.createElement(_ButtonBase.default, (0, _extends2.default)({
     className: className,
     disabled: disabled,
     focusRipple: !disableFocusRipple,
     focusVisibleClassName: (0, _classnames.default)(classes.focusVisible, focusVisibleClassName)
-  }, other), _react$$1.default.createElement("span", {
+  }, other), _react.default.createElement("span", {
     className: classes.label
   }, children));
 }
@@ -10804,7 +10812,7 @@ var _possibleConstructorReturn2 = interopRequireDefault$1(possibleConstructorRet
 
 var _inherits2 = interopRequireDefault$1(inherits$1);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -10922,7 +10930,7 @@ function (_React$Component) {
     }
   }]);
   return MuiThemeProvider;
-}(_react$$1.default.Component);
+}(_react.default.Component);
 
 MuiThemeProvider.propTypes = {
   /**
@@ -11000,7 +11008,7 @@ var _possibleConstructorReturn2 = interopRequireDefault$1(possibleConstructorRet
 
 var _inherits2 = interopRequireDefault$1(inherits$1);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -11069,14 +11077,14 @@ var withTheme = function withTheme() {
           var _props = this.props,
               innerRef = _props.innerRef,
               other = (0, _objectWithoutProperties2.default)(_props, ["innerRef"]);
-          return _react$$1.default.createElement(Component, (0, _extends2.default)({
+          return _react.default.createElement(Component, (0, _extends2.default)({
             theme: this.state.theme,
             ref: innerRef
           }, other));
         }
       }]);
       return WithTheme;
-    }(_react$$1.default.Component);
+    }(_react.default.Component);
 
     WithTheme.propTypes = {
       /**
@@ -11176,8 +11184,8 @@ unwrapExports(styles);
 var styles_1 = styles.MuiThemeProvider;
 var styles_2 = styles.createMuiTheme;
 
-var css$1 = "@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@-webkit-keyframes Button_ghost-out__3u3qa {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-moz-keyframes Button_ghost-out__3u3qa {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-ms-keyframes Button_ghost-out__3u3qa {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-o-keyframes Button_ghost-out__3u3qa {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@keyframes Button_ghost-out__3u3qa {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-webkit-keyframes Button_loader-grow-in___CB0f {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-moz-keyframes Button_loader-grow-in___CB0f {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-ms-keyframes Button_loader-grow-in___CB0f {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-o-keyframes Button_loader-grow-in___CB0f {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@keyframes Button_loader-grow-in___CB0f {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-webkit-keyframes Button_action-in__1Qsig {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-moz-keyframes Button_action-in__1Qsig {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-ms-keyframes Button_action-in__1Qsig {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-o-keyframes Button_action-in__1Qsig {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@keyframes Button_action-in__1Qsig {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-webkit-keyframes Button_coverage-slide-in__2nRlO {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-moz-keyframes Button_coverage-slide-in__2nRlO {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-ms-keyframes Button_coverage-slide-in__2nRlO {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-o-keyframes Button_coverage-slide-in__2nRlO {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@keyframes Button_coverage-slide-in__2nRlO {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-webkit-keyframes Button_coverage-slide-out__1ISXN {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@-moz-keyframes Button_coverage-slide-out__1ISXN {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@-ms-keyframes Button_coverage-slide-out__1ISXN {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@-o-keyframes Button_coverage-slide-out__1ISXN {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@keyframes Button_coverage-slide-out__1ISXN {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n.Button_primary_button__1CRV4 {\n  font-family: \"Roboto\";\n  font-weight: 200;\n  color: white;\n  background-color: white;\n  border: 1px solid #09f;\n  -webkit-transition:;\n  -moz-transition:;\n  -ms-transition:;\n  -o-transition:;\n  transition:;\n  -webkit-transition:;\n  -moz-transition:;\n  -ms-transition:;\n  -o-transition:;\n  transition:; }\n  .Button_primary_button__1CRV4 .Button_button_label__ot1eH {\n    color: #09f; }\n  .Button_primary_button__1CRV4:hover {\n    background-color: #09f; }\n    .Button_primary_button__1CRV4:hover .Button_button_label__ot1eH {\n      color: white; }\n  .Button_primary_button__1CRV4.Button_active__3dq6z {\n    background-color: #09f;\n    -webkit-box-shadow: none;\n    box-shadow: none; }\n    .Button_primary_button__1CRV4.Button_active__3dq6z .Button_button_label__ot1eH {\n      color: white; }\n  .Button_primary_button__1CRV4.Button_disabled__3O5v9 {\n    background-color: #CCCCCC;\n    border-color: #CCCCCC;\n    -webkit-box-shadow: none;\n    box-shadow: none; }\n    .Button_primary_button__1CRV4.Button_disabled__3O5v9 .Button_button_label__ot1eH {\n      color: white; }\n";
-var style$1 = { "primary_button": "Button_primary_button__1CRV4", "button_label": "Button_button_label__ot1eH", "active": "Button_active__3dq6z", "disabled": "Button_disabled__3O5v9", "ghost-out": "Button_ghost-out__3u3qa", "loader-grow-in": "Button_loader-grow-in___CB0f", "action-in": "Button_action-in__1Qsig", "coverage-slide-in": "Button_coverage-slide-in__2nRlO", "coverage-slide-out": "Button_coverage-slide-out__1ISXN" };
+var css$1 = "@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@keyframes Button_helper-container-in__3Nles {\n  from {\n    max-height: 0px; }\n  to {\n    max-height: 130px; } }\n\n@keyframes Button_helper-in__3EdVG {\n  from {\n    -webkit-transform: scale(0);\n    -ms-transform: scale(0);\n    transform: scale(0); }\n  to {\n    -webkit-transform: scale(1);\n    -ms-transform: scale(1);\n    transform: scale(1); } }\n\n@keyframes Button_full-helper-out__8dyBD {\n  from {\n    opacity: 1; }\n  to {\n    opacity: 0;\n    display: none;\n    visibility: hidden; } }\n\n@-webkit-keyframes Button_ghost-out__1h938 {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-moz-keyframes Button_ghost-out__1h938 {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-ms-keyframes Button_ghost-out__1h938 {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-o-keyframes Button_ghost-out__1h938 {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@keyframes Button_ghost-out__1h938 {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-webkit-keyframes Button_loader-grow-in__yY7R5 {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-moz-keyframes Button_loader-grow-in__yY7R5 {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-ms-keyframes Button_loader-grow-in__yY7R5 {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-o-keyframes Button_loader-grow-in__yY7R5 {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@keyframes Button_loader-grow-in__yY7R5 {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-webkit-keyframes Button_action-in__ufsSB {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-moz-keyframes Button_action-in__ufsSB {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-ms-keyframes Button_action-in__ufsSB {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-o-keyframes Button_action-in__ufsSB {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@keyframes Button_action-in__ufsSB {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-webkit-keyframes Button_coverage-slide-in__S2p6G {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-moz-keyframes Button_coverage-slide-in__S2p6G {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-ms-keyframes Button_coverage-slide-in__S2p6G {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-o-keyframes Button_coverage-slide-in__S2p6G {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@keyframes Button_coverage-slide-in__S2p6G {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-webkit-keyframes Button_coverage-slide-out__2oHPd {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@-moz-keyframes Button_coverage-slide-out__2oHPd {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@-ms-keyframes Button_coverage-slide-out__2oHPd {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@-o-keyframes Button_coverage-slide-out__2oHPd {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@keyframes Button_coverage-slide-out__2oHPd {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n.Button_primary_button__5jU44 {\n  color: white;\n  background-color: white;\n  border: 1px solid #09f;\n  width: 75%;\n  margin-bottom: .5em;\n  -webkit-transition:;\n  -moz-transition:;\n  -ms-transition:;\n  -o-transition:;\n  transition:;\n  -webkit-transition:;\n  -moz-transition:;\n  -ms-transition:;\n  -o-transition:;\n  transition:;\n  -webkit-transform:;\n  -moz-transform:;\n  -ms-transform:;\n  -o-transform:;\n  transform:; }\n  @media (max-width: 599px) {\n    .Button_primary_button__5jU44 {\n      width: 100%; } }\n  .Button_primary_button__5jU44 .Button_button_label__272PT {\n    color: #09f; }\n  .Button_primary_button__5jU44:hover {\n    background-color: #09f; }\n    .Button_primary_button__5jU44:hover .Button_button_label__272PT {\n      color: white; }\n  .Button_primary_button__5jU44.Button_active__20SIC {\n    background-color: #09f; }\n    .Button_primary_button__5jU44.Button_active__20SIC .Button_button_label__272PT {\n      color: white; }\n  .Button_primary_button__5jU44.Button_disabled__FL4sR {\n    background-color: #CCCCCC;\n    border-color: #CCCCCC; }\n    .Button_primary_button__5jU44.Button_disabled__FL4sR .Button_button_label__272PT {\n      color: white; }\n";
+var style$1 = { "primary_button": "Button_primary_button__5jU44", "button_label": "Button_button_label__272PT", "active": "Button_active__20SIC", "disabled": "Button_disabled__FL4sR", "helper-container-in": "Button_helper-container-in__3Nles", "helper-in": "Button_helper-in__3EdVG", "full-helper-out": "Button_full-helper-out__8dyBD", "ghost-out": "Button_ghost-out__1h938", "loader-grow-in": "Button_loader-grow-in__yY7R5", "action-in": "Button_action-in__ufsSB", "coverage-slide-in": "Button_coverage-slide-in__S2p6G", "coverage-slide-out": "Button_coverage-slide-out__2oHPd" };
 styleInject(css$1);
 
 //need both exports [in class and footer]
@@ -11200,7 +11208,8 @@ var Button$2 = function (_Component) {
           root: {
             '&:hover': {
               backgroundColor: 'visible'
-            }
+            },
+            marginBottom: '1em'
           }
         },
         MuiButtonBase: {
@@ -11220,19 +11229,20 @@ var Button$2 = function (_Component) {
 
       var rootClasses = this.props.active === true ? style$1.active + ' active' : this.props.active === false ? style$1.disabled + ' disabled' : 'idle';
 
-      return _react__default.createElement(
+      return React__default.createElement(
         styles_1,
         { theme: this.themeOverride },
-        _react__default.createElement(ButtonBase$2, {
+        React__default.createElement(ButtonBase$2, {
           disableRipple: true,
           disableTouchRipple: true,
           focusRipple: false,
+          onClick: this.props.onClick,
 
           classes: {
             root: classnames(style$1.primary_button) + (' ' + rootClasses + ' primary_button')
           },
 
-          children: _react__default.createElement(ButtonLabel, {
+          children: React__default.createElement(ButtonLabel, {
             label: this.props.label,
             classes: classnames(style$1.button_label)
           })
@@ -11242,7 +11252,13 @@ var Button$2 = function (_Component) {
     }
   }]);
   return Button;
-}(_react.Component);
+}(React.Component);
+
+Button$2.propTypes = {
+  active: propTypes.bool,
+  onClick: propTypes.func,
+  label: propTypes.string.isRequired
+};
 
 /**
  * Returns a function, that, as long as it continues to be invoked, will not
@@ -11323,7 +11339,7 @@ var _inherits = _interopDefault(inherits$1);
 var _typeof = _interopDefault(_typeof_1);
 var _objectWithoutProperties = _interopDefault(objectWithoutProperties$1);
 var _objectSpread = _interopDefault(objectSpread);
-var React = _interopDefault(_react__default);
+var React$$1 = _interopDefault(React__default);
 var PropTypes = _interopDefault(propTypes);
 var warning = _interopDefault(warning_1);
 
@@ -11475,7 +11491,7 @@ function (_React$PureComponent) {
   }]);
 
   return EventListener;
-}(React.PureComponent);
+}(React$$1.PureComponent);
 
 EventListener.propTypes = {
   /**
@@ -11517,7 +11533,7 @@ var _possibleConstructorReturn2 = interopRequireDefault$1(possibleConstructorRet
 
 var _inherits2 = interopRequireDefault$1(inherits$1);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -11701,15 +11717,15 @@ function (_React$Component) {
           textareaRef = _props.textareaRef,
           value = _props.value,
           other = (0, _objectWithoutProperties2.default)(_props, ["classes", "className", "defaultValue", "onChange", "rows", "rowsMax", "textareaRef", "value"]);
-      return _react$$1.default.createElement("div", {
+      return _react.default.createElement("div", {
         className: classes.root,
         style: {
           height: this.state.height
         }
-      }, _react$$1.default.createElement(_reactEventListener.default, {
+      }, _react.default.createElement(_reactEventListener.default, {
         target: "window",
         onResize: this.handleResize
-      }), _react$$1.default.createElement("textarea", {
+      }), _react.default.createElement("textarea", {
         "aria-hidden": "true",
         className: (0, _classnames.default)(classes.textarea, classes.shadow),
         readOnly: true,
@@ -11717,7 +11733,7 @@ function (_React$Component) {
         rows: "1",
         tabIndex: -1,
         value: ""
-      }), _react$$1.default.createElement("textarea", {
+      }), _react.default.createElement("textarea", {
         "aria-hidden": "true",
         className: (0, _classnames.default)(classes.textarea, classes.shadow),
         defaultValue: defaultValue,
@@ -11726,7 +11742,7 @@ function (_React$Component) {
         rows: rows,
         tabIndex: -1,
         value: value
-      }), _react$$1.default.createElement("textarea", (0, _extends2.default)({
+      }), _react.default.createElement("textarea", (0, _extends2.default)({
         rows: rows,
         className: (0, _classnames.default)(classes.textarea, className),
         defaultValue: defaultValue,
@@ -11737,7 +11753,7 @@ function (_React$Component) {
     }
   }]);
   return Textarea;
-}(_react$$1.default.Component);
+}(_react.default.Component);
 
 Textarea.propTypes = {
   /**
@@ -11826,7 +11842,7 @@ var _possibleConstructorReturn2 = interopRequireDefault$1(possibleConstructorRet
 
 var _inherits2 = interopRequireDefault$1(inherits$1);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -12207,7 +12223,7 @@ function (_React$Component) {
     /* istanbul ignore else */
 
 
-    if (_react$$1.default.createContext) {
+    if (_react.default.createContext) {
       _this.UNSAFE_componentWillReceiveProps = componentWillReceiveProps;
       _this.UNSAFE_componentWillUpdate = componentWillUpdate;
     } else {
@@ -12346,9 +12362,9 @@ function (_React$Component) {
         }
       }
 
-      return _react$$1.default.createElement("div", (0, _extends2.default)({
+      return _react.default.createElement("div", (0, _extends2.default)({
         className: className
-      }, other), startAdornment, _react$$1.default.createElement(InputComponent, (0, _extends2.default)({
+      }, other), startAdornment, _react.default.createElement(InputComponent, (0, _extends2.default)({
         "aria-invalid": error,
         autoComplete: autoComplete,
         autoFocus: autoFocus,
@@ -12372,7 +12388,7 @@ function (_React$Component) {
     }
   }]);
   return Input;
-}(_react$$1.default.Component);
+}(_react.default.Component);
 
 Input.propTypes = {
   /**
@@ -12607,7 +12623,7 @@ var _defineProperty2 = interopRequireDefault$1(defineProperty$1);
 
 var _objectWithoutProperties2 = interopRequireDefault$1(objectWithoutProperties$1);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -12702,9 +12718,9 @@ function FormLabel(props, context) {
   }
 
   var className = (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes.disabled, disabled), (0, _defineProperty2.default)(_classNames, classes.error, error), (0, _defineProperty2.default)(_classNames, classes.filled, filled), (0, _defineProperty2.default)(_classNames, classes.focused, focused), (0, _defineProperty2.default)(_classNames, classes.required, required), _classNames), classNameProp);
-  return _react$$1.default.createElement(Component, (0, _extends2.default)({
+  return _react.default.createElement(Component, (0, _extends2.default)({
     className: className
-  }, other), children, required && _react$$1.default.createElement("span", {
+  }, other), children, required && _react.default.createElement("span", {
     className: (0, _classnames.default)(classes.asterisk, (0, _defineProperty2.default)({}, classes.error, error))
   }, "\u2009*"));
 }
@@ -12808,7 +12824,7 @@ var _defineProperty2 = interopRequireDefault$1(defineProperty$1);
 
 var _objectWithoutProperties2 = interopRequireDefault$1(objectWithoutProperties$1);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -12884,7 +12900,7 @@ function InputLabel(props, context) {
   }
 
   var className = (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes.formControl, muiFormControl), (0, _defineProperty2.default)(_classNames, classes.animated, !disableAnimation), (0, _defineProperty2.default)(_classNames, classes.shrink, shrink), (0, _defineProperty2.default)(_classNames, classes.marginDense, margin === 'dense'), _classNames), classNameProp);
-  return _react$$1.default.createElement(_FormLabel.default, (0, _extends2.default)({
+  return _react.default.createElement(_FormLabel.default, (0, _extends2.default)({
     "data-shrink": shrink,
     className: className,
     classes: FormLabelClasses
@@ -12997,25 +13013,25 @@ exports.cloneChildrenWithClassName = cloneChildrenWithClassName;
 exports.isMuiElement = isMuiElement;
 exports.isMuiComponent = isMuiComponent;
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _classnames = interopRequireDefault$1(classnames);
 
 /* eslint-disable import/prefer-default-export */
 function cloneElementWithClassName(child, className) {
-  return _react$$1.default.cloneElement(child, {
+  return _react.default.cloneElement(child, {
     className: (0, _classnames.default)(child.props.className, className)
   });
 }
 
 function cloneChildrenWithClassName(children, className) {
-  return _react$$1.default.Children.map(children, function (child) {
-    return _react$$1.default.isValidElement(child) && cloneElementWithClassName(child, className);
+  return _react.default.Children.map(children, function (child) {
+    return _react.default.isValidElement(child) && cloneElementWithClassName(child, className);
   });
 }
 
 function isMuiElement(element, muiNames) {
-  return _react$$1.default.isValidElement(element) && muiNames.indexOf(element.type.muiName) !== -1;
+  return _react.default.isValidElement(element) && muiNames.indexOf(element.type.muiName) !== -1;
 }
 
 function isMuiComponent(element, muiNames) {
@@ -13052,7 +13068,7 @@ var _possibleConstructorReturn2 = interopRequireDefault$1(possibleConstructorRet
 
 var _inherits2 = interopRequireDefault$1(inherits$1);
 
-var _react$$1 = interopRequireDefault$1(_react__default);
+var _react = interopRequireDefault$1(React__default);
 
 var _propTypes = interopRequireDefault$1(propTypes);
 
@@ -13162,7 +13178,7 @@ function (_React$Component) {
     var children = _this.props.children;
 
     if (children) {
-      _react$$1.default.Children.forEach(children, function (child) {
+      _react.default.Children.forEach(children, function (child) {
         if (!(0, reactHelpers.isMuiElement)(child, ['Input', 'Select', 'NativeSelect'])) {
           return;
         }
@@ -13225,13 +13241,13 @@ function (_React$Component) {
           margin = _props2.margin,
           required = _props2.required,
           other = (0, _objectWithoutProperties2.default)(_props2, ["classes", "className", "component", "disabled", "error", "fullWidth", "margin", "required"]);
-      return _react$$1.default.createElement(Component, (0, _extends2.default)({
+      return _react.default.createElement(Component, (0, _extends2.default)({
         className: (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes["margin".concat((0, helpers.capitalize)(margin))], margin !== 'none'), (0, _defineProperty2.default)(_classNames, classes.fullWidth, fullWidth), _classNames), className)
       }, other));
     }
   }]);
   return FormControl;
-}(_react$$1.default.Component);
+}(_react.default.Component);
 
 FormControl.propTypes = {
   /**
@@ -13344,17 +13360,17 @@ var Input$2 = function (_Component) {
 
         _this.render = function () {
 
-            return _react__default.createElement(
+            return React__default.createElement(
                 styles_1,
                 { theme: _this.themeOverride },
-                _react__default.createElement(
+                React__default.createElement(
                     FormControlMUI,
                     {
                         classes: {
                             root: styles$1.field_control + ' field_control'
                         }
                     },
-                    _react__default.createElement(
+                    React__default.createElement(
                         InputLabelMUI,
                         {
                             classes: {
@@ -13367,7 +13383,7 @@ var Input$2 = function (_Component) {
                         },
                         _this.props.label
                     ),
-                    _react__default.createElement(InputMUI, {
+                    React__default.createElement(InputMUI, {
                         disableUnderline: true,
                         type: _this.props.type ? _this.props.type : 'text',
                         classes: {
@@ -13423,7 +13439,7 @@ var Input$2 = function (_Component) {
     }
 
     return Input;
-}(_react.Component);
+}(React.Component);
 
 Input$2.propTypes = {
     type: propTypes.string,
@@ -13431,10 +13447,45 @@ Input$2.propTypes = {
     label: propTypes.string
 };
 
+var css$3 = "@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i\");\n@keyframes Helper_helper-container-in__iJTBT {\n  from {\n    max-height: 0px; }\n  to {\n    max-height: 130px; } }\n\n@keyframes Helper_helper-in__1rA4u {\n  from {\n    -webkit-transform: scale(0);\n    -ms-transform: scale(0);\n    transform: scale(0); }\n  to {\n    -webkit-transform: scale(1);\n    -ms-transform: scale(1);\n    transform: scale(1); } }\n\n@keyframes Helper_full-helper-out__165AK {\n  from {\n    opacity: 1; }\n  to {\n    opacity: 0;\n    display: none;\n    visibility: hidden; } }\n\n@-webkit-keyframes Helper_ghost-out__1j_gd {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-moz-keyframes Helper_ghost-out__1j_gd {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-ms-keyframes Helper_ghost-out__1j_gd {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-o-keyframes Helper_ghost-out__1j_gd {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@keyframes Helper_ghost-out__1j_gd {\n  from {\n    max-height: 65px;\n    margin-top: .25em;\n    opacity: 1; }\n  to {\n    max-height: 0;\n    margin-top: 0;\n    opacity: 0;\n    overflow: hidden; } }\n\n@-webkit-keyframes Helper_loader-grow-in__q4EO2 {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-moz-keyframes Helper_loader-grow-in__q4EO2 {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-ms-keyframes Helper_loader-grow-in__q4EO2 {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-o-keyframes Helper_loader-grow-in__q4EO2 {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@keyframes Helper_loader-grow-in__q4EO2 {\n  from {\n    width: 0%; }\n  to {\n    width: 100%; } }\n\n@-webkit-keyframes Helper_action-in__3SC4G {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-moz-keyframes Helper_action-in__3SC4G {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-ms-keyframes Helper_action-in__3SC4G {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-o-keyframes Helper_action-in__3SC4G {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@keyframes Helper_action-in__3SC4G {\n  from {\n    -webkit-transform: translateY(5px);\n    -ms-transform: translateY(5px);\n    transform: translateY(5px); }\n  to {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-webkit-keyframes Helper_coverage-slide-in__1JjMM {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-moz-keyframes Helper_coverage-slide-in__1JjMM {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-ms-keyframes Helper_coverage-slide-in__1JjMM {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-o-keyframes Helper_coverage-slide-in__1JjMM {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@keyframes Helper_coverage-slide-in__1JjMM {\n  0% {\n    -webkit-transform: translateY(-100%);\n    -ms-transform: translateY(-100%);\n    transform: translateY(-100%); }\n  100% {\n    -webkit-transform: translateY(0);\n    -ms-transform: translateY(0);\n    transform: translateY(0); } }\n\n@-webkit-keyframes Helper_coverage-slide-out__2ESVj {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@-moz-keyframes Helper_coverage-slide-out__2ESVj {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@-ms-keyframes Helper_coverage-slide-out__2ESVj {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@-o-keyframes Helper_coverage-slide-out__2ESVj {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n@keyframes Helper_coverage-slide-out__2ESVj {\n  0% {\n    transform: translateY(0); }\n  100% {\n    transform: translateY(-100%); } }\n\n.Helper_helper_container__1E1Xb {\n  display: flex;\n  flex-direction: row;\n  align-content: flex-end;\n  justify-content: baseline;\n  overflow: hidden;\n  max-height: 0px;\n  margin-top: 1em;\n  -webkit-animation: Helper_helper-container-in__iJTBT 0.75s linear 0.25s forwards;\n  -moz-animation: Helper_helper-container-in__iJTBT 0.75s linear 0.25s forwards;\n  -ms-animation: Helper_helper-container-in__iJTBT 0.75s linear 0.25s forwards;\n  -o-animation: Helper_helper-container-in__iJTBT 0.75s linear 0.25s forwards;\n  animation: Helper_helper-container-in__iJTBT 0.75s linear 0.25s forwards; }\n  @media (max-width: 599px) {\n    .Helper_helper_container__1E1Xb {\n      margin: auto;\n      margin-top: 1em; } }\n  .Helper_helper_container__1E1Xb .Helper_helper_face__2AoQM {\n    width: 35px;\n    height: 35px;\n    border-radius: 35px;\n    flex-shrink: 0; }\n  .Helper_helper_container__1E1Xb .Helper_helper_content__2LwyF {\n    width: 301px;\n    background-color: #f1f2f3;\n    padding: .75em;\n    border-radius: 10px 10px 10px 0;\n    margin-left: 1em;\n    -webkit-transform: scale(0);\n    -moz-transform: scale(0);\n    -ms-transform: scale(0);\n    -o-transform: scale(0);\n    transform: scale(0);\n    -webkit-animation: Helper_helper-in__1rA4u 0.35s ease-out 0.8s forwards;\n    -moz-animation: Helper_helper-in__1rA4u 0.35s ease-out 0.8s forwards;\n    -ms-animation: Helper_helper-in__1rA4u 0.35s ease-out 0.8s forwards;\n    -o-animation: Helper_helper-in__1rA4u 0.35s ease-out 0.8s forwards;\n    animation: Helper_helper-in__1rA4u 0.35s ease-out 0.8s forwards; }\n    @media (max-width: 599px) {\n      .Helper_helper_container__1E1Xb .Helper_helper_content__2LwyF {\n        width: 100%; } }\n    .Helper_helper_container__1E1Xb .Helper_helper_content__2LwyF p {\n      font-family: 'Roboto', Helvetica, Arial, sans-serif;\n      font-size: 0.95em;\n      color: #555;\n      margin: 0; }\n  .Helper_helper_container__1E1Xb .Helper_helper_child__m8hFn {\n    margin-top: auto;\n    display: flex; }\n";
+var styles$2 = { "helper_container": "Helper_helper_container__1E1Xb", "helper-container-in": "Helper_helper-container-in__iJTBT", "helper_face": "Helper_helper_face__2AoQM", "helper_content": "Helper_helper_content__2LwyF", "helper-in": "Helper_helper-in__1rA4u", "helper_child": "Helper_helper_child__m8hFn", "full-helper-out": "Helper_full-helper-out__165AK", "ghost-out": "Helper_ghost-out__1j_gd", "loader-grow-in": "Helper_loader-grow-in__q4EO2", "action-in": "Helper_action-in__3SC4G", "coverage-slide-in": "Helper_coverage-slide-in__1JjMM", "coverage-slide-out": "Helper_coverage-slide-out__2ESVj" };
+styleInject(css$3);
+
+var helperImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAACSBJREFUeAHlW31wnEUZ/+17l6Q0/RDSgiMVxWCLWPwoMgyDhRkBBcK1aE0ZEbAwleqMBGohzfWPUv2jl4Y6aGcYpIxQBOtARtvmaP2sDmjRjtbKtLS2FMap4h+0aWliY0zubv0973t37+7d5S73keRy7kzy7j777LPP79ndZz9PYaxD66bZGPjPQkDPh07MA9SHWeVsKEwnjX8SVD80+qH0O/weg3KO8PsaGqe+iu62Ex7P2PxXYyI21LUAicSXoPXnKH8+gZZYj9IsfxAOfk6DvICd4X2V1rdExXKo0fr4NAycWU5Fv8rcy3JwVIJ0iMb4AZzAU+hZ3V8JgeUb4MubZuD02ZXs0g+wxc+thFIFZSh1mvVtQnDKd7F95bsF+fMwlG4AzW4diixDQnWyi5+fp46xzDrBHrEa0fAWKHe4FF1XaQYIPXoxEsPPsrvTuVVBUPgdHeky+oi3itXGKbYAWiKtiA//tWrACwBpCK33u7oVCWj0BpAuf+v6CCt6kXXMKLKe8WCf4ep2y/oN/I66Z4+O8b4n6/DP3i1Eccd4IKlAHVsxp2kZNq8YLiSrsAEE/NunumnVxYWEVVe+imLOeUsKGSH/EJCuJC0/6cBLU+hQUve8jRzI22r7Gjjm8fW8PNWdeTl+/Goj3vj1r0ZSc2Tr3Lrhi0jEu0cqOKnoSi3lFJkTS24D3Bb5IIb0awRZurdXStbvf2dX/FoVGKsP9cEF2N7+ZqYu2T5Axv2Q3kLGcsDH4aiH0Nj8DcrZnlnpBKRnYDj2TK7pMdsAsrwFritLSY2nEO14Hd1L42i85HYuU3eUJa8ShWWx5GGzpNkGkB2dRsTiKD7Rh4bgI+li3UuHMLV5CeA8k6ZNVCSBDZDNmxFsA5ztW0UDXGDklxBV67Dt4XesgtITdnXcyx3cw/xLWHnjm5iNdwceNKv0naC7n+87znFS+pZWYTdeCt+Yd2cW6roO8fjzdI5zTEXGLS5b6YDzgdR5gt8DBvrvKQ+86kUgcHde8IIy2v4yGhs+zt3bD8cNtFmRNHAsfk+K5BtAJ8qbrhxnOa36r5TgvN/ub57CrvBXEFDX02Cv5+Udm8wVKbGeARZFPklC6cdYjvoWoquLn+6i4d/gyo6PsW7pOUXv5VMgSvheBjm3ZPAMkNBLSxDiFVF4guN+Xcnl16kEdq15jjPFXK4dvkAn+duSZRVTMB67XdiTBlAtxZT1edULuDIsi53yg8wUL4W3Yeeaz7A3NMNxVtNP/Kl8wSNIUPis5Ch8fn0T/qtO0Cv7M8IIZWyy+h5XeqvcxY6dUdlUaOMs6NjVdNDXUMdPUeWLGb+IlQTzVqQwwPy/kf8AvwcI7xjLbzNwxhBomslTns4Qz/B78gqzM2Psqveztb5vk8cx1fpiAINvXcj+O5PAGgiygeuXIOI4g7pALxLTehFdIQawQ8v6w+S7NE1UwWuDJIgDHF1Qah8CPPfvCe8fXYEx4pLhAhwvXrr6I3uAbwDErqIP0HMLClJ4mzwP0FFdNeHgCyqbh0Fhb0buFTKOPpRBTCbVMO/qXmHiOVzYtLXQ0VJuGVVG1bxz5DgxwgU0gH6fQeBwch7hAuUPmH7OXvyorc/Km+wJpU9xyPtBo4kGUNNoBJ9Yn3gc29b0+oQaitVzuT5o4FFoEh+QvKJOZgQvqcilo1FN9UQDdRkNq86jAf6fwhzLAbDxAzQAHyeYIXbM7hFm3mSPZ2FT/Q6Hv20ArWrXAJnYiF18wEmrYYeULDNrM2Rh0yfFBxy10DqYZ6VrKZGN7ajjPkgyQWr9ETNZU/FMbHyM5cDR9omMxqdrCrQJRuuFZlKwO5jS+ApnAn8lpLAArZ0zLcZaSAgmpYyNHzETu5N8h3cwjVHrAAa0e1iQptVCRDAJNj8cFOziBBlU5u3pnR69hv5r3GWj8TB7BlB6q5WpcTPkhWetBA/LTRacJGbPAN4LzEM+g67D2X8/5KcneczFQkx+OJR6dZocAsxR6mk/3421YfF33p9Bm3xJD0ObpbiB1TdAwNlMI5w2GKcgNvRtIz05ox6GKWnlvauxzam0bwB5eyvPT62g78bizsst0mRKuLoTgxkEo/HO2DeAMMnbW6X8vYHmueuw3sjpo8gjc7PGCYqLzq7uybsPT40TLkZDJXNe5Cn6LwYx7/qT3CEuNnia+dAowYdGLxu06o/++Zy13OgttxR1cD962nky7IfslhXLtUT49ha8iEgFrpoCaOWj5J+kKFX9DUWW8OyTj6KsnruHnn8he7i/6iUIewgIKmEIOHcwYjxyoKA4nsUtXZ+oauCinOgoulrgiUUwZYAX9mwDCDXacRzBgFxUDknSC7oRKr6DFbw3Ram6r+gmOoK6poJgECyCKUfIbQBh7Gnfw15gP5KUOzkV31uVPUFaXnTz7g0NqMTgYjFIRtR2gkaGG31j937MvUF2hlcbWUzru3DpDUdwdPdhgz5xURnzWkepl718V+oxjvvOfIqN3ANSpaY282GTyrg8ZRcTJ9PSuXZCp0jXYVMHz+H53V50F51F9wIhexbIVUBuYwfefJRgV2Znq1+ijo8id3QcyM4bQ4oscmSeR46tu7S8gPcuUfMqMToDpES0RO5lhU9wnVCfIrlf9+kbHz0F69dix6p/WHmVTsja3l3ecoUnCzUzuE6bY35nOHNfY3JZ8eIMIEUXdV3DV1Y/pSHOtyR5Cbl42oTGaRsr/oNH2dJ6O1TZ2Phr+7QSnOrE2+dxeGlWI1K8AaRwqPMixBNyhmAslgypkJtl/IyU5zGVQ6S744yZO+q4HGN5p1N3srVvptHNLa0pZo87z48w1ZmMmfHSDCBSxAHJ21utuhiflSk4nVYqTuX/QoP8no7pMN+JHkG9Ps5jyH6k7iHlxkYuLeTcXo6u5fRWDmflfNI+xkqLdSOyb1G6ffx/Nmeqcdtj70Fs8EEq3EZlzzWzxixeFT+czES3aMN0Dov7aAQ6yjLeHGbKtdOH2IueZnffbG5pbZbiUqUPgXz1tESuYJfmfkLfSLb5/JZYj7tx4Yk1DzDlDK+qfzw9kkHEew+evZY/sf2o9/N5zCWgWRzfvIRNvU3gDbV7SeveUx51b6vkwkbuLMb45/P/A3Yfz4T7OV2XAAAAAElFTkSuQmCC";
+
+var Helper = function Helper(props) {
+    return props.active !== false ? React__default.createElement(
+        'div',
+        { className: 'helper helper-container ' + classnames(styles$2.helper_container) },
+        React__default.createElement('img', {
+            alt: "ACE Helper",
+            src: helperImg,
+            className: 'helper-face helper-child ' + classnames(styles$2.helper_face) + ' ' + classnames(styles$2.helper_child)
+        }),
+        React__default.createElement(
+            'div',
+            {
+                className: 'helper-content helper-child ' + classnames(styles$2.helper_content) + ' ' + classnames(styles$2.helper_child)
+            },
+            React__default.createElement(
+                'p',
+                null,
+                props.content
+            )
+        )
+    ) : null;
+};
+
+Helper.propTypes = {
+    active: propTypes.bool,
+    content: propTypes.string.isRequired
+};
+
 // index.js
 
 exports.Button = Button$2;
 exports.Input = Input$2;
+exports.Helper = Helper;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
