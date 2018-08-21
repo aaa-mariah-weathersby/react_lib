@@ -8,6 +8,7 @@ The API documentation of the Input React component.
         <label>Input Field</label> 
     </form>
 </div>
+
 ### Props
 | Name     | Type     | Default | Description                                                                                                                                                |   |
 |----------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
